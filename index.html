@@ -47,8 +47,22 @@ header{
     background:linear-gradient(135deg,#1e3a8a,#0f172a);
 }
 
+/* Header එක මැදට Logo එක සහ Text එක ලස්සනට පෙළගැස්වීමට Flexbox භාවිත කර ඇත */
 header h1{
     font-size:3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Logo එක සහ Text එක අතර පරතරය */
+    flex-wrap: wrap;
+}
+
+/* Logo එකේ ප්‍රමාණය පාලනය කිරීමට */
+.store-logo {
+    height: 250px; 
+    width: auto;
+    object-fit: contain;
+    border-radius: 8px; /* අවශ්‍ය නම් වටකුරු කිරීමට */
 }
 
 section{
@@ -123,11 +137,13 @@ footer{
 <body>
 
 <header>
-    <h1>🎮 GAME CART STORE</h1>
+    <h1>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4yOy1Kn6bqY9SGNOkRSm1shALzxogGEelMQ&s" alt="Game Cart Store Logo" class="store-logo">
+        GAME CART STORE
+    </h1>
     <p>Best PC Games Collection</p>
 </header>
 
-<!-- FAR CRY -->
 <section>
 <h2>🔥 Far Cry Series</h2>
 <div class="grid">
@@ -155,7 +171,6 @@ footer{
 </div>
 </section>
 
-<!-- GTA -->
 <section>
 <h2>🚗 GTA Series</h2>
 <div class="grid">
@@ -164,8 +179,6 @@ footer{
 <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg">
 <div class="content">GTA V<div class="price">Rs. 225</div></div>
 </div>
-
-<!-- UPDATED IMAGES -->
 
 <div class="card">
 <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1546990/header.jpg">
@@ -185,7 +198,6 @@ footer{
 </div>
 </section>
 
-<!-- RACING -->
 <section>
 <h2>🏎️ Racing Games</h2>
 <div class="grid">
@@ -208,7 +220,6 @@ footer{
 </div>
 </section>
 
-<!-- BATTLEFIELD -->
 <section>
 <h2>🔫 Battlefield Series</h2>
 <div class="grid">
@@ -226,7 +237,6 @@ footer{
 </div>
 </section>
 
-<!-- COMMENTS -->
 <section>
 <h2>💬 Customer Comments</h2>
 
@@ -252,7 +262,6 @@ Post Comment
 </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact">
 <h2>📞 Contact To Buy</h2>
 
