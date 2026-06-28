@@ -5,34 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Game Cart Store</title>
 
-<script>
-function addComment(){
-    let name = document.getElementById("name").value;
-    let comment = document.getElementById("comment").value;
-
-    if(name === "" || comment === ""){
-        alert("Please fill all fields!");
-        return;
-    }
-
-    let box = document.getElementById("comments");
-
-    let newComment = document.createElement("div");
-    newComment.style.background = "#1e293b";
-    newComment.style.padding = "10px";
-    newComment.style.margin = "10px";
-    newComment.style.borderRadius = "8px";
-
-    newComment.innerHTML =
-        "<b>" + name + "</b><br>" + comment;
-
-    box.prepend(newComment);
-
-    document.getElementById("name").value = "";
-    document.getElementById("comment").value = "";
-}
-</script>
-
 <style>
 body{
     margin:0;
@@ -47,22 +19,20 @@ header{
     background:linear-gradient(135deg,#1e3a8a,#0f172a);
 }
 
-/* Header එක මැදට Logo එක සහ Text එක ලස්සනට පෙළගැස්වීමට Flexbox භාවිත කර ඇත */
 header h1{
     font-size:3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px; /* Logo එක සහ Text එක අතර පරතරය */
+    gap: 15px; 
     flex-wrap: wrap;
 }
 
-/* Logo එකේ ප්‍රමාණය Text එකේ size එකටම ගැළපෙන සේ සකසා ඇත */
 .store-logo {
-    height: 200px; /* Text size එක 3rem නිසා මෙයට 3.5rem දීමෙන් ලස්සනට පෙනේ */
+    height: 200px; 
     width: auto;
     object-fit: contain;
-    border-radius: 8px; /* අවශ්‍ය නම් වටකුරු කිරීමට */
+    border-radius: 8px; 
 }
 
 section{
@@ -124,12 +94,26 @@ h2{
     color:white;
     text-decoration:none;
     border-radius:8px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
 }
 
 footer{
     text-align:center;
     padding:20px;
     background:#020617;
+}
+
+/* Added small fix for the comments layout */
+.comment-box {
+    background: #1e293b;
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 8px;
+    text-align: left;
+    width: 80%;
+    border: 1px solid #334155;
 }
 </style>
 </head>
@@ -147,93 +131,76 @@ footer{
 <section>
 <h2>🔥 Far Cry Series</h2>
 <div class="grid">
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/220240/header.jpg">
-<div class="content">Far Cry 3<div class="price">Rs. 225</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/298110/header.jpg">
-<div class="content">Far Cry 4<div class="price">Rs. 225</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/552520/header.jpg">
-<div class="content">Far Cry 5<div class="price">Rs. 450</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/371660/header.jpg">
-<div class="content">Far Cry Primal<div class="price">Rs. 250</div></div>
-</div>
-
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/220240/header.jpg">
+        <div class="content">Far Cry 3<div class="price">Rs. 225</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/298110/header.jpg">
+        <div class="content">Far Cry 4<div class="price">Rs. 225</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/552520/header.jpg">
+        <div class="content">Far Cry 5<div class="price">Rs. 450</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/371660/header.jpg">
+        <div class="content">Far Cry Primal<div class="price">Rs. 250</div></div>
+    </div>
 </div>
 </section>
 
 <section>
 <h2>🚗 GTA Series</h2>
 <div class="grid">
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg">
-<div class="content">GTA V<div class="price">Rs. 225</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1546990/header.jpg">
-<div class="content">GTA Vice City<div class="price">Rs. 50</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1547000/header.jpg">
-<div class="content">GTA San Andreas<div class="price">Rs. 100</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/12210/header.jpg">
-<div class="content">GTA IV<div class="price">Rs. 150</div></div>
-</div>
-
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg">
+        <div class="content">GTA V<div class="price">Rs. 225</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1546990/header.jpg">
+        <div class="content">GTA Vice City<div class="price">Rs. 50</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1547000/header.jpg">
+        <div class="content">GTA San Andreas<div class="price">Rs. 100</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/12210/header.jpg">
+        <div class="content">GTA IV<div class="price">Rs. 150</div></div>
+    </div>
 </div>
 </section>
 
 <section>
 <h2>🏎️ Racing Games</h2>
 <div class="grid">
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg">
-<div class="content">Forza Horizon 5<div class="price">Rs. 450</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1222680/header.jpg">
-<div class="content">NFS Heat<div class="price">Rs. 450</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1262560/header.jpg">
-<div class="content">NFS Most Wanted<div class="price">Rs. 150</div></div>
-</div>
-
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1551360/header.jpg">
+        <div class="content">Forza Horizon 5<div class="price">Rs. 450</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1222680/header.jpg">
+        <div class="content">NFS Heat<div class="price">Rs. 450</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1262560/header.jpg">
+        <div class="content">NFS Most Wanted<div class="price">Rs. 150</div></div>
+    </div>
 </div>
 </section>
 
 <section>
 <h2>🔫 Battlefield Series</h2>
 <div class="grid">
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1238860/header.jpg">
-<div class="content">Battlefield 4<div class="price">Rs. 150</div></div>
-</div>
-
-<div class="card">
-<img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1238810/header.jpg">
-<div class="content">Battlefield V<div class="price">Rs. 300</div></div>
-</div>
-
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1238860/header.jpg">
+        <div class="content">Battlefield 4<div class="price">Rs. 150</div></div>
+    </div>
+    <div class="card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1238810/header.jpg">
+        <div class="content">Battlefield V<div class="price">Rs. 300</div></div>
+    </div>
 </div>
 </section>
 
@@ -241,41 +208,110 @@ footer{
 <h2>💬 Customer Comments</h2>
 
 <div class="contact">
+    <input type="text" id="name" placeholder="Your Name" style="width:80%; padding:10px; margin:10px; border-radius:8px; border:none; color:black;">
+    <br>
+    <textarea id="comment" placeholder="Write your comment..." style="width:80%; height:100px; padding:10px; border-radius:8px; border:none; color:black; font-family:Arial;"></textarea>
+    <br>
+    
+    <button id="postBtn" class="btn">Post Comment</button>
 
-<input type="text" id="name" placeholder="Your Name"
-style="width:80%; padding:10px; margin:10px; border-radius:8px; border:none;">
-
-<br>
-
-<textarea id="comment" placeholder="Write your comment..."
-style="width:80%; height:100px; padding:10px; border-radius:8px; border:none;">
-</textarea>
-
-<br>
-
-<button onclick="addComment()" class="btn">
-Post Comment
-</button>
-
-<div id="comments" style="margin-top:20px;"></div>
-
+    <div id="comments" style="margin-top:20px;">
+        <p style="color: #94a3b8;">Loading comments...</p>
+    </div>
 </div>
 </section>
 
 <section class="contact">
 <h2>📞 Contact To Buy</h2>
-
 <p>WhatsApp: +94 72 602 3056</p>
 <p>Email: senhaswijelath@gmail.com</p>
-
-<a class="btn" href="https://wa.me/94726023056">
-Chat on WhatsApp
-</a>
+<a class="btn" href="https://wa.me/94726023056">Chat on WhatsApp</a>
 </section>
 
 <footer>
 © 2026 Game Cart Store
 </footer>
+
+<script type="module">
+    // Import Firebase SDKs directly via CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } 
+    from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    // Your Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDeNYoG3_UaomE28Nq1x2G3dZWyofWsOzI",
+        authDomain: "gamecart-b6987.firebaseapp.com",
+        projectId: "gamecart-b6987",
+        storageBucket: "gamecart-b6987.firebasestorage.app",
+        messagingSenderId: "828290925587",
+        appId: "1:828290925587:web:2b0497f51887aa08c1abe6",
+        measurementId: "G-KQLCCJSCG0"
+    };
+
+    // Initialize Firebase and Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const commentsCollection = collection(db, "comments");
+
+    // 1. READ COMMENTS REAL-TIME (Penda thiyenna)
+    const q = query(commentsCollection, orderBy("timestamp", "desc"));
+    
+    onSnapshot(q, (snapshot) => {
+        const box = document.getElementById("comments");
+        box.innerHTML = ""; 
+        
+        if (snapshot.empty) {
+            box.innerHTML = "<p style='color: #94a3b8;'>No comments yet. Be the first!</p>";
+            return;
+        }
+
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            let newComment = document.createElement("div");
+            newComment.className = "comment-box";
+            
+            newComment.innerHTML = "<b style='color:#60a5fa;'>" + data.name + "</b><br><span style='line-height:1.5;'>" + data.comment + "</span>";
+            
+            box.appendChild(newComment);
+        });
+    });
+
+    // 2. ADD A NEW COMMENT (Sthirawama save wenna)
+    document.getElementById("postBtn").addEventListener("click", async () => {
+        let nameField = document.getElementById("name");
+        let commentField = document.getElementById("comment");
+        
+        let name = nameField.value.trim();
+        let comment = commentField.value.trim();
+
+        if(name === "" || comment === ""){
+            alert("Please fill all fields!");
+            return;
+        }
+
+        let btn = document.getElementById("postBtn");
+        btn.innerText = "Posting...";
+        btn.disabled = true;
+
+        try {
+            await addDoc(commentsCollection, {
+                name: name,
+                comment: comment,
+                timestamp: serverTimestamp() 
+            });
+            
+            nameField.value = "";
+            commentField.value = "";
+        } catch (error) {
+            console.error("Error adding comment: ", error);
+            alert("Failed to post comment. Check your Firebase Database rules!");
+        } finally {
+            btn.innerText = "Post Comment";
+            btn.disabled = false;
+        }
+    });
+</script>
 
 </body>
 </html>
