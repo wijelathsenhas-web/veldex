@@ -430,7 +430,6 @@ footer{
     const passwordInput = document.getElementById('authPassword');
     const commentUserEmail = document.getElementById('commentUserEmail');
 
-    // Global variable to keep track of current logged-in user
     let currentUser = null;
 
     onAuthStateChanged(auth, (user) => {
@@ -447,7 +446,6 @@ footer{
             commentUserEmail.value = "Please login to comment";
             document.getElementById("postBtn").disabled = true;
         }
-        // Refresh visible comments list to update Delete buttons visibility
         loadCommentsRealTime();
     });
 
@@ -495,13 +493,12 @@ footer{
         });
     });
 
-    // Encapsulated the listener so it can be safely reassessed upon auth updates
     let unsubscribeComments = null;
     function loadCommentsRealTime() {
         if(unsubscribeComments) unsubscribeComments();
 
-        const q = query(commentsCollection, orderBy("timestamp", "desc"));
-        unsubscribeComments = onSnapshot(q, (snapshot) => {
+        // Safe query without orderBy to avoid crashing due to missing timestamps in old comments
+        unsubscribeComments = onSnapshot(commentsCollection, (snapshot) => {
             const box = document.getElementById("comments");
             box.innerHTML = ""; 
             
@@ -514,17 +511,20 @@ footer{
                 const data = snapshotDoc.data();
                 const docId = snapshotDoc.id;
                 
+                // Fallback mechanism to handle old comments structure safely
+                const displayEmail = data.email ? data.email : (data.name ? data.name : "Anonymous");
+                const displayComment = data.comment ? data.comment : "";
+
                 let newComment = document.createElement("div");
                 newComment.className = "comment-box";
                 
-                // Details Structure
                 let detailsDiv = document.createElement("div");
                 detailsDiv.className = "comment-details";
-                detailsDiv.innerHTML = "<b style='color:#60a5fa;'>" + data.email + "</b><br><span style='line-height:1.5;'>" + data.comment + "</span>";
+                detailsDiv.innerHTML = "<b style='color:#60a5fa;'>" + displayEmail + "</b><br><span style='line-height:1.5;'>" + displayComment + "</span>";
                 newComment.appendChild(detailsDiv);
 
-                // Add delete button ONLY if logged-in user matches the author
-                if (currentUser && data.userId === currentUser.uid) {
+                // Check safely if the user matches
+                if (currentUser && data.userId && data.userId === currentUser.uid) {
                     let deleteBtn = document.createElement("button");
                     deleteBtn.className = "btn-delete";
                     deleteBtn.innerText = "Delete";
@@ -542,6 +542,9 @@ footer{
                 
                 box.appendChild(newComment);
             });
+        }, (error) => {
+            console.error("Snapshot error: ", error);
+            document.getElementById("comments").innerHTML = "<p style='color: #ef4444;'>Failed to load comments. Verify Firebase rules.</p>";
         });
     }
 
