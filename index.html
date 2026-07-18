@@ -32,26 +32,149 @@ body{
     color:white;
 }
 
-header{
-    text-align:center;
-    padding:60px 20px;
-    background:linear-gradient(135deg,#1e3a8a,#0f172a);
+/* Redesigned Header to act as a Left-Right Navigation Container */
+header {
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+    padding: 20px 40px;
+    border-bottom: 1px solid #334155;
 }
 
-header h1{
-    font-size:3rem;
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* Left Side: Logo and Title Column */
+.brand-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-title-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 15px; 
-    flex-wrap: wrap;
+    gap: 20px;
+}
+
+header h1 {
+    font-size: 2.8rem;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .store-logo {
-    height: 200px; 
+    height: 100px; /* Adjusted for neat alignment */
     width: auto;
     object-fit: contain;
     border-radius: 8px; 
+}
+
+header p {
+    margin: 5px 0 0 0;
+    color: #94a3b8;
+    font-size: 15px;
+}
+
+/* Right Side: Auth Container Box */
+.auth-wrapper {
+    flex-shrink: 0;
+}
+
+.auth-section {
+    width: 380px;
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.auth-section h2 {
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+}
+
+.auth-group {
+    margin-bottom: 15px;
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.auth-group label {
+    font-size: 13px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.error-msg {
+    color: #ef4444;
+    font-size: 12px;
+    font-weight: bold;
+    display: none;
+}
+
+.auth-section .input-field {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.auth-section .input-field:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.auth-buttons .btn {
+    flex: 1;
+    margin-top: 0;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+#loggedInView {
+    text-align: center;
+}
+
+.profile-card {
+    background: #0f172a;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    margin-bottom: 15px;
 }
 
 section{
@@ -122,104 +245,13 @@ h2{
 .btn-primary { background: #3b82f6; }
 .btn-danger { background: #ef4444; }
 
-/* Modern Auth Design (Anker Game Style) */
-.auth-section {
-    max-width: 450px;
-    margin: 40px auto;
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 40px 30px;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    text-align: left;
-}
-
-.auth-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #fff;
-    font-weight: 600;
-}
-
-.auth-group {
-    margin-bottom: 20px;
-}
-
-.label-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.auth-group label {
-    font-size: 14px;
-    color: #94a3b8;
-    font-weight: 500;
-}
-
-/* Inline Error Styling */
-.error-msg {
-    color: #ef4444;
-    font-size: 13px;
-    font-weight: bold;
-    display: none;
-}
-
-.auth-section .input-field {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 14px 16px;
-    background: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    color: white;
-    font-size: 15px;
-    transition: all 0.3s ease;
-}
-
-.auth-section .input-field:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
-}
-
-.auth-buttons {
-    display: flex;
-    gap: 12px;
-    margin-top: 25px;
-}
-
-.auth-buttons .btn {
-    flex: 1;
-    margin-top: 0;
-    padding: 14px;
-    font-weight: bold;
-    font-size: 15px;
-    transition: background 0.2s;
-}
-
-#loggedInView {
-    text-align: center;
-}
-
-.profile-card {
-    background: #0f172a;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #334155;
-    margin-bottom: 20px;
-}
-
 footer{
     text-align:center;
     padding:20px;
     background:#020617;
 }
 
-/* Comment Box Styles with Delete Button Integration */
+/* Comment Box Styles */
 .comment-box {
     background: #1e293b;
     padding: 15px;
@@ -265,57 +297,83 @@ footer{
 .btn-delete:hover {
     background: #dc2626;
 }
+
+/* Responsive fixes for small devices */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .brand-section {
+        align-items: center;
+    }
+    .logo-title-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .auth-section {
+        width: 100%;
+        max-width: 380px;
+    }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>
-        <img src="logo.png" class="store-logo" alt="Logo">
-        VELDEX
-    </h1>
-    <p>Best PC games Collection</p>
-</header>
-
-<section>
-    <div class="auth-section">
-        <h2>🔐 User Account</h2>
-        
-        <!-- Logged Out View -->
-        <div id="loggedOutView">
-            <div class="auth-group">
-                <div class="label-container">
-                    <label for="authEmail">Email Address</label>
-                    <span id="emailError" class="error-msg"></span>
-                </div>
-                <input type="email" id="authEmail" class="input-field" placeholder="Enter your email">
+    <div class="header-container">
+        <!-- Left Aligned Section (Red Circle Area) -->
+        <div class="brand-section">
+            <div class="logo-title-row">
+                <img src="logo.png" class="store-logo" alt="Logo">
+                <h1>VELDEX</h1>
             </div>
-            
-            <div class="auth-group">
-                <div class="label-container">
-                    <label for="authPassword">Password</label>
-                    <span id="passwordError" class="error-msg"></span>
-                </div>
-                <input type="password" id="authPassword" class="input-field" placeholder="Enter your password">
-            </div>
-            
-            <div class="auth-buttons">
-                <button id="loginBtn" class="btn btn-primary">Login</button>
-                <button id="signupBtn" class="btn">Sign Up</button>
-            </div>
+            <p>Best PC games Collection</p>
         </div>
 
-        <!-- Logged In View -->
-        <div id="loggedInView" style="display: none;">
-            <div class="profile-card">
-                <p style="margin: 0 0 5px 0; color: #94a3b8; font-size: 14px;">Logged in as</p>
-                <span id="userDisplayEmail" style="color:#22c55e; font-size: 18px; font-weight: bold; word-break: break-all;"></span>
+        <!-- Right Aligned Section (Orange Circle Area) -->
+        <div class="auth-wrapper">
+            <div class="auth-section">
+                <h2>🔐 User Account</h2>
+                
+                <!-- Logged Out View -->
+                <div id="loggedOutView">
+                    <div class="auth-group">
+                        <div class="label-container">
+                            <label for="authEmail">Email Address</label>
+                            <span id="emailError" class="error-msg"></span>
+                        </div>
+                        <input type="email" id="authEmail" class="input-field" placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="auth-group">
+                        <div class="label-container">
+                            <label for="authPassword">Password</label>
+                            <span id="passwordError" class="error-msg"></span>
+                        </div>
+                        <input type="password" id="authPassword" class="input-field" placeholder="Enter your password">
+                    </div>
+                    
+                    <div class="auth-buttons">
+                        <button id="loginBtn" class="btn btn-primary">Login</button>
+                        <button id="signupBtn" class="btn">Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Logged In View -->
+                <div id="loggedInView" style="display: none;">
+                    <div class="profile-card">
+                        <p style="margin: 0 0 5px 0; color: #94a3b8; font-size: 13px;">Logged in as</p>
+                        <span id="userDisplayEmail" style="color:#22c55e; font-size: 16px; font-weight: bold; word-break: break-all;"></span>
+                    </div>
+                    <button id="logoutBtn" class="btn btn-danger" style="width: 100%;">Logout</button>
+                </div>
             </div>
-            <button id="logoutBtn" class="btn btn-danger" style="width: 100%;">Logout</button>
         </div>
     </div>
-</section>
+</header>
 
 <section>
 <h2>🔥 Far Cry Series</h2>
@@ -448,7 +506,6 @@ footer{
     const passwordInput = document.getElementById('authPassword');
     const commentUserEmail = document.getElementById('commentUserEmail');
     
-    // Error spans
     const emailError = document.getElementById('emailError');
     const passwordError = document.getElementById('passwordError');
 
@@ -507,10 +564,10 @@ footer{
                     emailError.innerText = "Email already exists";
                     emailError.style.display = "inline";
                 } else if (errorCode === 'auth/weak-password') {
-                    passwordError.innerText = "Weak password (min 6 characters)";
+                    passwordError.innerText = "Weak password (min 6 chars)";
                     passwordError.style.display = "inline";
                 } else if (errorCode === 'auth/invalid-email') {
-                    emailError.innerText = "Invalid email format";
+                    emailError.innerText = "Invalid email";
                     emailError.style.display = "inline";
                 } else {
                     passwordError.innerText = "Sign Up Failed";
@@ -542,9 +599,6 @@ footer{
             })
             .catch((error) => {
                 const errorCode = error.code;
-                console.log("Login Error Code: ", errorCode);
-                
-                // Handling incorrect passwords or user accounts natively
                 if (errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-credential') {
                     passwordError.innerText = "Incorrect password";
                     passwordError.style.display = "inline";
@@ -552,7 +606,7 @@ footer{
                     emailError.innerText = "Email not found";
                     emailError.style.display = "inline";
                 } else if (errorCode === 'auth/invalid-email') {
-                    emailError.innerText = "Invalid email format";
+                    emailError.innerText = "Invalid email";
                     emailError.style.display = "inline";
                 } else {
                     passwordError.innerText = "Login failed";
