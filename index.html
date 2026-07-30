@@ -23,45 +23,290 @@
     <link rel="apple-touch-icon" href="logo.png"> 
     <link rel="shortcut icon" href="/logo.png"/>
 <style>
-body{    margin:0;    font-family:Arial, sans-serif;    background:#0f172a;    color:white;}
-header {    background: linear-gradient(135deg, #1e3a8a, #0f172a);    padding: 20px 40px;    border-bottom: 1px solid #334155;}
-.header-container {    max-width: 1200px;    margin: 0 auto;    display: flex;    justify-content: space-between;    align-items: center;    flex-wrap: wrap;    gap: 30px;}
-.brand-section {    display: flex;    flex-direction: column;    align-items: flex-start;}
-.logo-title-row {    display: flex;    align-items: center;    gap: 20px;}
-header h1 {    font-size: 2.8rem;    margin: 0;    font-weight: bold;    letter-spacing: 1px;}
-.store-logo {    height: 100px;    width: auto;    object-fit: contain;    border-radius: 8px; }
-header p {    margin: 5px 0 0 0;    color: #94a3b8;    font-size: 15px;}
-.auth-wrapper {    flex-shrink: 0;}
-.auth-section {    width: 380px;    background: rgba(30, 41, 59, 0.7);    backdrop-filter: blur(10px);    border: 1px solid rgba(255, 255, 255, 0.1);    padding: 25px 25px;    border-radius: 16px;    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);    text-align: left;    box-sizing: border-box;}
-.auth-section h2 {    font-size: 1.4rem;    margin-top: 0;    margin-bottom: 20px;    text-align: center;    color: #fff;    font-weight: 600;}
-.auth-group {    margin-bottom: 15px;}
-.label-container {    display: flex;    justify-content: space-between;    align-items: center;    margin-bottom: 6px;}
-.auth-group label {    font-size: 13px;    color: #94a3b8;    font-weight: 500;}
-.error-msg {    color: #ef4444;    font-size: 12px;    font-weight: bold;    display: none;}
-.auth-section .input-field {    width: 100%;    box-sizing: border-box;    padding: 12px 14px;    background: #0f172a;    border: 1px solid #334155;    border-radius: 8px;    color: white;    font-size: 14px;    transition: all 0.3s ease;}
-.auth-section .input-field:focus {    outline: none;    border-color: #3b82f6;    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);}
-.auth-buttons {    display: flex;    gap: 12px;    margin-top: 20px;}
-.auth-buttons .btn {    flex: 1;    margin-top: 0;    padding: 12px;    font-weight: bold;    font-size: 14px;    transition: background 0.2s;}
-#loggedInView {    text-align: center;}
-.profile-card {    background: #0f172a;    padding: 15px;    border-radius: 12px;    border: 1px solid #334155;    margin-bottom: 15px;}
-section{    padding:40px 20px;    max-width:1100px;    margin:auto;}
-h2{    color:#60a5fa;}
-.grid{    display:grid;    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));    gap:15px;}
-.card{    background:#1e293b;    border-radius:10px;    overflow:hidden;    border:1px solid #334155;    transition:0.3s;}
-.card:hover{    transform:scale(1.05);}
-.card img{    width:100%;    height:200px;    object-fit:cover;}
-.content{    padding:12px;}
-.price{    color:#22c55e;    font-weight:bold;    margin-top:6px;}
-.contact{    text-align:center;    background:#111827;    padding:40px;    border-radius:10px;    margin-bottom: 20px;}
-.btn{    display:inline-block;    margin-top:10px;    padding:12px 25px;    background:#22c55e;    color:white;    text-decoration:none;    border-radius:8px;    cursor: pointer;    border: none;    font-size: 16px;}
-.btn-primary { background: #3b82f6; }.btn-danger { background: #ef4444; }
-footer{    text-align:center;    padding:20px;    background:#020617;}
-.comment-box {    background: #1e293b;    padding: 15px;    margin: 10px auto;    border-radius: 8px;    text-align: left;    width: 80%;    border: 1px solid #334155;    display: flex;    justify-content: space-between;    align-items: flex-start;    gap: 15px;}
-.comment-details {    flex-grow: 1;}
-.comment-email-field {    width: 80%;    padding: 12px;    margin: 10px auto;    border-radius: 8px;    border: 1px solid #334155;    color: #94a3b8;    background: #0f172a;    font-weight: bold;    box-sizing: border-box;}
-.btn-delete {    background: #ef4444;    color: white;    border: none;    padding: 6px 12px;    border-radius: 6px;    cursor: pointer;    font-size: 13px;    font-weight: bold;    transition: background 0.2s;}
-.btn-delete:hover {    background: #dc2626;}
-@media (max-width: 768px) {    .header-container {        flex-direction: column;        align-items: center;        text-align: center;    }    .brand-section {        align-items: center;    }    .logo-title-row {        flex-direction: column;        gap: 10px;    }    .auth-section {        width: 100%;        max-width: 380px;    }}
+body{    
+    margin:0;    
+    font-family:Arial, sans-serif;    
+    background:#1b2838;    /* Steam Background Gray */
+    color:#c7d5e0;         /* Steam Light Text */
+}
+header {    
+    background: linear-gradient(135deg, #171a21, #1b2838);    /* Steam Dark Header */
+    padding: 20px 40px;    
+    border-bottom: 1px solid #2a475e;
+}
+.header-container {    
+    max-width: 1200px;    
+    margin: 0 auto;    
+    display: flex;    
+    justify-content: space-between;    
+    align-items: center;    
+    flex-wrap: wrap;    
+    gap: 30px;
+}
+.brand-section {    
+    display: flex;    
+    flex-direction: column;    
+    align-items: flex-start;
+}
+.logo-title-row {    
+    display: flex;    
+    align-items: center;    
+    gap: 20px;
+}
+header h1 {    
+    font-size: 2.8rem;    
+    margin: 0;    
+    font-weight: bold;    
+    letter-spacing: 1px;
+    color: #fff;
+}
+.store-logo {    
+    height: 100px;    
+    width: auto;    
+    object-fit: contain;    
+    border-radius: 8px; 
+}
+header p {    
+    margin: 5px 0 0 0;    
+    color: #66c0f4;    /* Steam Cyan Tint */
+    font-size: 15px;
+}
+.auth-wrapper {    
+    flex-shrink: 0;
+}
+.auth-section {    
+    width: 380px;    
+    background: rgba(23, 26, 33, 0.9);    
+    backdrop-filter: blur(10px);    
+    border: 1px solid #2a475e;    
+    padding: 25px 25px;    
+    border-radius: 8px;    
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);    
+    text-align: left;    
+    box-sizing: border-box;
+}
+.auth-section h2 {    
+    font-size: 1.4rem;    
+    margin-top: 0;    
+    margin-bottom: 20px;    
+    text-align: center;    
+    color: #fff;    
+    font-weight: 600;
+}
+.auth-group {    
+    margin-bottom: 15px;
+}
+.label-container {    
+    display: flex;    
+    justify-content: space-between;    
+    align-items: center;    
+    margin-bottom: 6px;
+}
+.auth-group label {    
+    font-size: 13px;    
+    color: #c7d5e0;    
+    font-weight: 500;
+}
+.error-msg {    
+    color: #ef4444;    
+    font-size: 12px;    
+    font-weight: bold;    
+    display: none;
+}
+.auth-section .input-field {    
+    width: 100%;    
+    box-sizing: border-box;    
+    padding: 12px 14px;    
+    background: #101822;    
+    border: 1px solid #2a475e;    
+    border-radius: 4px;    
+    color: white;    
+    font-size: 14px;    
+    transition: all 0.3s ease;
+}
+.auth-section .input-field:focus {    
+    outline: none;    
+    border-color: #66c0f4;    
+    box-shadow: 0 0 0 2px rgba(102, 192, 244, 0.2);
+}
+.auth-buttons {    
+    display: flex;    
+    gap: 12px;    
+    margin-top: 20px;
+}
+.auth-buttons .btn {    
+    flex: 1;    
+    margin-top: 0;    
+    padding: 12px;    
+    font-weight: bold;    
+    font-size: 14px;    
+    transition: background 0.2s;
+}
+#loggedInView {    
+    text-align: center;
+}
+.profile-card {    
+    background: #101822;    
+    padding: 15px;    
+    border-radius: 4px;    
+    border: 1px solid #2a475e;    
+    margin-bottom: 15px;
+}
+section{    
+    padding:40px 20px;    
+    max-width:1100px;    
+    margin:auto;
+}
+h2{    
+    color:#66c0f4; /* Steam Blue */
+    border-bottom: 1px solid #2a475e;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+/* එක යට එක (Vertical) එන්න grid එක column එකක් බවට පත් කලා */
+.grid{    
+    display:grid;    
+    grid-template-columns: 1fr;    
+    gap:15px;
+}
+/* Card එක දිග අතට (Horizontal Row) හැඩගැස්වීම */
+.card{    
+    background:#172030;    
+    border-radius:4px;    
+    overflow:hidden;    
+    border:1px solid #2a475e;    
+    transition:0.2s;
+    display: flex;
+    align-items: center;
+}
+.card:hover{    
+    background:#202d44;
+    border-color: #66c0f4;
+}
+.card img{    
+    width: 180px;    
+    height: 100px;    
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.content{    
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+}
+.price{    
+    color:#a3cf06;    /* Steam Green Price */
+    font-weight:bold;    
+    background: #4c6b22;
+    padding: 6px 14px;
+    border-radius: 2px;
+}
+.contact{    
+    text-align:center;    
+    background:#171a21;    
+    padding:40px;    
+    border-radius:8px;    
+    margin-bottom: 20px;
+    border: 1px solid #2a475e;
+}
+.btn{    
+    display:inline-block;    
+    margin-top:10px;    
+    padding:12px 25px;    
+    background: linear-gradient(to right, #47b649, #348838); /* Steam-ish Green Button */
+    color:white;    
+    text-decoration:none;    
+    border-radius:4px;    
+    cursor: pointer;    
+    border: none;    
+    font-size: 16px;
+}
+.btn:hover {
+    background: linear-gradient(to right, #52cf54, #3c9d41);
+}
+.btn-primary { background: linear-gradient(to bottom, #66c0f4, #1b2838); border: 1px solid #2a475e; }
+.btn-primary:hover { background: #66c0f4; color: #171a21; }
+.btn-danger { background: #a34c4c; }
+.btn-danger:hover { background: #d65858; }
+footer{    
+    text-align:center;    
+    padding:30px;    
+    background:#171a21;
+    color: #556772;
+    border-top: 1px solid #2a475e;
+}
+.comment-box {    
+    background: #172030;    
+    padding: 15px;    
+    margin: 10px auto;    
+    border-radius: 4px;    
+    text-align: left;    
+    width: 80%;    
+    border: 1px solid #2a475e;    
+    display: flex;    
+    justify-content: space-between;    
+    align-items: flex-start;    
+    gap: 15px;}
+.comment-details {    
+    flex-grow: 1;}
+.comment-email-field {    
+    width: 80%;    
+    padding: 12px;    
+    margin: 10px auto;    
+    border-radius: 4px;    
+    border: 1px solid #2a475e;    
+    color: #c7d5e0;    
+    background: #101822;    
+    font-weight: bold;    
+    box-sizing: border-box;}
+.btn-delete {    
+    background: #a34c4c;    
+    color: white;    
+    border: none;    
+    padding: 6px 12px;    
+    border-radius: 4px;    
+    cursor: pointer;    
+    font-size: 13px;    
+    font-weight: bold;    
+    transition: background 0.2s;}
+.btn-delete:hover {    
+    background: #ef4444;}
+@media (max-width: 768px) {    
+    .header-container {        
+        flex-direction: column;        
+        align-items: center;        
+        text-align: center;    
+    }    
+    .brand-section {        
+        align-items: center;    
+    }    
+    .logo-title-row {        
+        flex-direction: column;        
+        gap: 10px;    
+    }    
+    .auth-section {        
+        width: 100%;        
+        max-width: 380px;    
+    }
+    .card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .card img {
+        width: 100%;
+        height: 150px;
+    }
+    .content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
 </style>
 </head>
 <body>
@@ -101,8 +346,8 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
 
                 <div id="loggedInView" style="display: none;">                    
                     <div class="profile-card">                        
-                        <p style="margin: 0 0 5px 0; color: #94a3b8; font-size: 13px;">Logged in as</p>                        
-                        <span id="userDisplayEmail" style="color:#22c55e; font-size: 16px; font-weight: bold; word-break: break-all;"></span>                    
+                        <p style="margin: 0 0 5px 0; color: #66c0f4; font-size: 13px;">Logged in as</p>                        
+                        <span id="userDisplayEmail" style="color:#a3cf06; font-size: 16px; font-weight: bold; word-break: break-all;"></span>                    
                     </div>                    
                     <button id="logoutBtn" class="btn btn-danger" style="width: 100%;">Logout</button>                
                 </div>            
@@ -111,25 +356,24 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
     </div>
 </header>
 
-<!-- ගේම්ස් වර්ගීකරණය අනුව ඔටෝමැටිකලි ලෝඩ් වන සෙක්ෂන්ස් -->
 <section>
     <h2>🔥 Far Cry Series</h2>
-    <div id="farcry-grid" class="grid"><p style="color: #94a3b8;">Loading games...</p></div>
+    <div id="farcry-grid" class="grid"><p style="color: #657786;">Loading games...</p></div>
 </section>
 
 <section>
     <h2>🚗 GTA Series</h2>
-    <div id="gta-grid" class="grid"><p style="color: #94a3b8;">Loading games...</p></div>
+    <div id="gta-grid" class="grid"><p style="color: #657786;">Loading games...</p></div>
 </section>
 
 <section>
     <h2>🏎️ Racing Games</h2>
-    <div id="racing-grid" class="grid"><p style="color: #94a3b8;">Loading games...</p></div>
+    <div id="racing-grid" class="grid"><p style="color: #657786;">Loading games...</p></div>
 </section>
 
 <section>
     <h2>🔫 Battlefield Series</h2>
-    <div id="battlefield-grid" class="grid"><p style="color: #94a3b8;">Loading games...</p></div>
+    <div id="battlefield-grid" class="grid"><p style="color: #657786;">Loading games...</p></div>
 </section>
 
 <section>
@@ -137,11 +381,11 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
     <div class="contact">    
         <input type="text" id="commentUserEmail" class="comment-email-field" readonly value="Please login to comment">    
         <br>    
-        <textarea id="comment" placeholder="Write your comment..." style="width:80%; height:100px; padding:10px; border-radius:8px; border:none; color:black; font-family:Arial; box-sizing: border-box;"></textarea>    
+        <textarea id="comment" placeholder="Write your comment..." style="width:80%; height:100px; padding:10px; border-radius:4px; border:1px solid #2a475e; color:white; background:#101822; font-family:Arial; box-sizing: border-box;"></textarea>    
         <br>    
         <button id="postBtn" class="btn">Post Comment</button>
         <div id="comments" style="margin-top:20px;">        
-            <p style="color: #94a3b8;">Loading comments...</p>    
+            <p style="color: #657786;">Loading comments...</p>    
         </div>
     </div>
 </section>
@@ -174,7 +418,7 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
     const db = getFirestore(app);    
     const auth = getAuth(app);    
     const commentsCollection = collection(db, "comments");
-    const gamesCollection = collection(db, "games"); // 👈 Games Collection එක සම්බන්ධ කිරීම
+    const gamesCollection = collection(db, "games");
 
     const loggedOutView = document.getElementById('loggedOutView');    
     const loggedInView = document.getElementById('loggedInView');    
@@ -212,7 +456,6 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
         loadCommentsRealTime();    
     });
 
-    // 🔗 Firebase Firestore එකෙන් Games Real-time ලෝඩ් කරන කොටස
     function loadGamesRealTime() {
         onSnapshot(gamesCollection, (snapshot) => {
             const grids = {
@@ -222,21 +465,19 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
                 "Battlefield Series": document.getElementById("battlefield-grid")
             };
 
-            // මුලින්ම හැම grid එකක්ම හිස් කරන්න
             Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ""; });
 
             snapshot.forEach((snapshotDoc) => {
                 const game = snapshotDoc.data();
                 const category = game.category;
 
-                // අදාළ category එකට ගැලපෙන grid එක තෝරාගැනීම
                 if (grids[category]) {
                     const gameCard = document.createElement("div");
                     gameCard.className = "card";
                     gameCard.innerHTML = `
                         <img src="${game.image}" alt="${game.title}">
                         <div class="content">
-                            ${game.title}
+                            <span>${game.title}</span>
                             <div class="price">${game.price}</div>
                         </div>
                     `;
@@ -244,10 +485,9 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
                 }
             });
 
-            // කිසිම ගේම් එකක් නැති grid වලට message එකක් දැමීම
             Object.keys(grids).forEach(key => {
                 if(grids[key].innerHTML === "") {
-                    grids[key].innerHTML = `<p style="color: #94a3b8;">No games available in this section.</p>`;
+                    grids[key].innerHTML = `<p style="color: #657786;">No games available in this section.</p>`;
                 }
             });
         }, (error) => {
@@ -255,7 +495,6 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
         });
     }
 
-    // Games load කරන function එක call කිරීම
     loadGamesRealTime();
 
     // 🔐 AUTHENTICATION SIGN UP
@@ -355,23 +594,23 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
 
         unsubscribeComments = onSnapshot(commentsCollection, (snapshot) => {            
             const box = document.getElementById("comments");            
-            box.innerHTML = "";                         
+            box.innerHTML = "";                                         
             if (snapshot.empty) {                
-                box.innerHTML = "<p style='color: #94a3b8;'>No comments yet. Be the first!</p>";                
+                box.innerHTML = "<p style='color: #657786;'>No comments yet. Be the first!</p>";                
                 return;            
             }
 
             snapshot.forEach((snapshotDoc) => {                
                 const data = snapshotDoc.data();                
-                const docId = snapshotDoc.id;                                
+                const docId = snapshotDoc.id;                                                 
                 const displayEmail = data.email ? data.email : (data.name ? data.name : "Anonymous");                
                 const displayComment = data.comment ? data.comment : "";
 
                 let newComment = document.createElement("div");                
-                newComment.className = "comment-box";                                
+                newComment.className = "comment-box";                                                 
                 let detailsDiv = document.createElement("div");                
                 detailsDiv.className = "comment-details";                
-                detailsDiv.innerHTML = "<b style='color:#60a5fa;'>" + displayEmail + "</b><br><span style='line-height:1.5;'>" + displayComment + "</span>";                
+                detailsDiv.innerHTML = "<b style='color:#66c0f4;'>" + displayEmail + "</b><br><span style='line-height:1.5;'>" + displayComment + "</span>";                
                 newComment.appendChild(detailsDiv);
 
                 if (currentUser && data.userId && data.userId === currentUser.uid) {                    
@@ -388,7 +627,7 @@ footer{    text-align:center;    padding:20px;    background:#020617;}
                         }                    
                     });                    
                     newComment.appendChild(deleteBtn);                
-                }                                
+                }                                                 
                 box.appendChild(newComment);            
             });        }, (error) => {            
             console.error("Snapshot error: ", error);            
