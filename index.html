@@ -31,15 +31,20 @@ body{
 }
 header {    
     background: linear-gradient(135deg, #171a21, #1b2838);    /* Steam Dark Header */
-    padding: 20px 40px;    
+    padding: 30px 40px;    /* padding වැඩි කර උඩ කොටස කැපීම වැළැක්වීම */
     border-bottom: 1px solid #2a475e;
+    min-height: 120px;     /* header එකට ස්ථිර අවම උසක් ලබා දීම */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 .header-container {    
+    width: 100%;
     max-width: 1200px;    
     margin: 0 auto;    
     display: flex;    
     justify-content: space-between;    
-    align-items: center;    
+    align-items: center;   /* Vertical Alignment එක Center කිරීම */ 
     flex-wrap: wrap;    
     gap: 30px;
 }
@@ -61,7 +66,7 @@ header h1 {
     color: #fff;
 }
 .store-logo {    
-    height: 100px;    
+    height: 90px;    
     width: auto;    
     object-fit: contain;    
     border-radius: 8px; 
@@ -163,13 +168,13 @@ h2{
     padding-bottom: 8px;
     margin-bottom: 20px;
 }
-/* එක යට එක (Vertical) එන්න grid එක column එකක් බවට පත් කලා */
+/* Games vertical එක යට එක එන්න හදපු grid එක */
 .grid{    
     display:grid;    
     grid-template-columns: 1fr;    
     gap:15px;
 }
-/* Card එක දිග අතට (Horizontal Row) හැඩගැස්වීම */
+/* Card layout එක දිග අතට සකස් කිරීම */
 .card{    
     background:#172030;    
     border-radius:4px;    
@@ -456,6 +461,7 @@ footer{
         loadCommentsRealTime();    
     });
 
+    // 🎮 Firestore එකෙන් Games dynamic වෙනම category වලට load කරන logic එක
     function loadGamesRealTime() {
         onSnapshot(gamesCollection, (snapshot) => {
             const grids = {
@@ -465,11 +471,13 @@ footer{
                 "Battlefield Series": document.getElementById("battlefield-grid")
             };
 
+            // මුලින්ම grids හිස් කරගන්නවා
             Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ""; });
 
             snapshot.forEach((snapshotDoc) => {
                 const game = snapshotDoc.data();
-                const category = game.category;
+                // Firestore එකේ field එකේ නම Simple/Capital සමාන විය යුතුය (category)
+                const category = game.category; 
 
                 if (grids[category]) {
                     const gameCard = document.createElement("div");
@@ -485,13 +493,20 @@ footer{
                 }
             });
 
+            // කිසිම Game එකක් නැති section වලට default message එකක් දානවා
             Object.keys(grids).forEach(key => {
-                if(grids[key].innerHTML === "") {
+                if(grids[key] && grids[key].innerHTML === "") {
                     grids[key].innerHTML = `<p style="color: #657786;">No games available in this section.</p>`;
                 }
             });
         }, (error) => {
             console.error("Error loading games: ", error);
+            // Error එකක් ආවොත් screen එකේ පෙන්වීමට
+            const sections = ["farcry-grid", "gta-grid", "racing-grid", "battlefield-grid"];
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.innerHTML = `<p style="color: #ef4444;">Database Error. Please check Firestore Rules.</p>`;
+            });
         });
     }
 
