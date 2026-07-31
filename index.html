@@ -47,7 +47,8 @@
             align-items: center;
         }
         .header-container {
-            width: 100%;            max-width: 1200px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -406,41 +407,10 @@
         </div>
     </header>
 
-    <section>
-        <h2>🔥 Far Cry Series</h2>
-        <div id="farcry-grid" class="grid">
-            <p style="color: #657786;">Loading games...</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>🚗 GTA Series</h2>
-        <div id="gta-grid" class="grid">
-            <p style="color: #657786;">Loading games...</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>🏎️ Racing Games</h2>
-        <div id="racing-grid" class="grid">
-            <p style="color: #657786;">Loading games...</p>
-        </div>
-    </section>
-
-    <section>
-        <h2>🔫 Battlefield Series</h2>
-        <div id="battlefield-grid" class="grid">
-            <p style="color: #657786;">Loading games...</p>
-        </div>
-    </section>
-
-    <!-- අලුතින් එක් කල Assassin's Creed Section එක -->
-    <section>
-        <h2>⚔️ Assassin's Creed Series</h2>
-        <div id="assassins-grid" class="grid">
-            <p style="color: #657786;">Loading games...</p>
-        </div>
-    </section>
+    <!-- සියලුම ගේම් සීරිස් / Categories ඩේටාබේස් එකෙන් ඇවිත් dynamic ව පිරෙන්නේ මේ ස්ථානයටයි -->
+    <main id="dynamic-games-container">
+        <div style="padding: 40px; text-align: center; color: #657786;">Loading Game Sections...</div>
+    </main>
 
     <!-- ORDER GAMES Button Section -->
     <div class="order-btn-wrapper">
@@ -499,9 +469,9 @@
         const commentUserEmail = document.getElementById('commentUserEmail');
         const emailError = document.getElementById('emailError');
         const passwordError = document.getElementById('passwordError');
+        const mainContainer = document.getElementById("dynamic-games-container");
 
         let currentUser = null;
-
         function clearErrors() {
             emailError.innerText = "";
             emailError.style.display = "none";
@@ -527,24 +497,44 @@
             loadCommentsRealTime();
         });
 
-        // Load Games from Firestore (යාවත්කාලීන කරන ලද කේතය)
+        // 100% Dynamic Game Loading System (Firestore එකෙන් කෙලින්ම Categories හදනවා)
         function loadGamesRealTime() {
             onSnapshot(gamesCollection, (snapshot) => {
-                const grids = {
-                    "Far Cry Series": document.getElementById("farcry-grid"),
-                    "GTA Series": document.getElementById("gta-grid"),
-                    "Racing Games": document.getElementById("racing-grid"),
-                    "Battlefield Series": document.getElementById("battlefield-grid"),
-                    "Assassin's Creed Series": document.getElementById("assassins-grid") // <-- අලුතින් ඇතුලත් කලා
-                };
+                mainContainer.innerHTML = ""; 
 
-                Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = ""; });
+                if (snapshot.empty) {
+                    mainContainer.innerHTML = `<section><p style="color: #657786; text-align:center;">No games available in the database.</p></section>`;
+                    return;
+                }
+
+                // Firestore එකෙන් එන දත්ත Category අනුව වෙන් කරගැනීම
+                const categoriesData = {};
 
                 snapshot.forEach((snapshotDoc) => {
                     const game = snapshotDoc.data();
-                    const category = game.category; 
+                    const category = game.category || "Other Games";
 
-                    if (grids[category]) {
+                    if (!categoriesData[category]) {
+                        categoriesData[category] = [];
+                    }
+                    categoriesData[category].push(game);
+                });
+
+                // හැම Category එකකටම අදාළව HTML Section එක බැගින් Dynamic ව නිර්මාණය කිරීම
+                Object.keys(categoriesData).forEach((categoryName) => {
+                    const section = document.createElement("section");
+                    
+                    // Category එක සඳහා Title එකක් සෑදීම
+                    const title = document.createElement("h2");
+                    title.innerText = categoryName;
+                    section.appendChild(title);
+
+                    // ගේම් කාඩ්ස් බහාලීමට Grid එකක් සෑදීම
+                    const grid = document.createElement("div");
+                    grid.className = "grid";
+
+                    // අදාළ Category එකේ ගේම්ස් සියල්ල Grid එකට එකතු කිරීම
+                    categoriesData[categoryName].forEach((game) => {
                         const gameCard = document.createElement("div");
                         gameCard.className = "card";
                         gameCard.innerHTML = `
@@ -554,22 +544,16 @@
                                 <div class="price">${game.price}</div>
                             </div>
                         `;
-                        grids[category].appendChild(gameCard);
-                    }
+                        grid.appendChild(gameCard);
+                    });
+
+                    section.appendChild(grid);
+                    mainContainer.appendChild(section);
                 });
 
-                Object.keys(grids).forEach(key => {
-                    if(grids[key] && grids[key].innerHTML === "") {
-                        grids[key].innerHTML = `<p style="color: #657786;">No games available in this section.</p>`;
-                    }
-                });
             }, (error) => {
                 console.error("Error loading games: ", error);
-                const sections = ["farcry-grid", "gta-grid", "racing-grid", "battlefield-grid", "assassins-grid"]; // <-- මෙතනටත් එකතු කලා
-                sections.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.innerHTML = `<p style="color: #ef4444;">Database Error. Please check Firestore Rules.</p>`;
-                });
+                mainContainer.innerHTML = `<section><p style="color: #ef4444; text-align:center;">Database Error. Please check Firestore Rules.</p></section>`;
             });
         }
 
