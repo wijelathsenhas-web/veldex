@@ -401,11 +401,21 @@
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(52, 136, 56, 0.4);
             transition: 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
         .btn-order:hover {
             background: linear-gradient(to right, #52cf54, #3c9d41);
             box-shadow: 0 6px 20px rgba(82, 207, 84, 0.6);
             transform: translateY(-2px);
+        }
+        /* --- ORDER ERROR MESSAGE STYLE --- */
+        .order-error-msg {
+            color: #ef4444;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
         }
         @media (max-width: 768px) {
             .header-container {
@@ -508,7 +518,8 @@
 
     <!-- ORDER GAMES Button Section -->
     <div class="order-btn-wrapper">
-        <a href="https://wijelathsenhas-web.github.io/oder-games/" class="btn-order">🛒 ORDER GAMES</a>
+        <button id="orderGamesBtn" class="btn-order">🛒 ORDER GAMES</button>
+        <div id="orderError" class="order-error-msg">Please sign in to order games</div>
     </div>
 
     <section>
@@ -567,6 +578,7 @@
         const passwordError = document.getElementById('passwordError');
         const mainContainer = document.getElementById("dynamic-games-container");
         const sliderContainer = document.getElementById("gameSliderContainer");
+        const orderError = document.getElementById('orderError');
 
         let currentUser = null;
         function clearErrors() {
@@ -574,6 +586,7 @@
             emailError.style.display = "none";
             passwordError.innerText = "";
             passwordError.style.display = "none";
+            orderError.style.display = "none";
         }
 
         onAuthStateChanged(auth, (user) => {
@@ -592,6 +605,16 @@
                 document.getElementById("postBtn").disabled = true;
             }
             loadCommentsRealTime();
+        });
+
+        // --- ORDER GAMES BUTTON CLICK LOGIC ---
+        document.getElementById("orderGamesBtn").addEventListener("click", () => {
+            if (currentUser) {
+                orderError.style.display = "none";
+                window.location.href = "https://wijelathsenhas-web.github.io/oder-games/";
+            } else {
+                orderError.style.display = "block";
+            }
         });
 
         // --- DYNAMIC SLIDER ENGINE (REALTIME - NO BUTTON) ---
@@ -647,6 +670,7 @@
                 const dots = document.querySelectorAll(".dot");
 
                 function goToSlide(n) {
+                    if(!slides.length) return;
                     slides[currentSlideIndex].classList.remove("active");
                     dots[currentSlideIndex].classList.remove("active");
                     currentSlideIndex = (n + slides.length) % slides.length;
