@@ -165,6 +165,89 @@
             border: 1px solid #2a475e;
             margin-bottom: 15px;
         }
+
+        /* --- HERO SLIDER CSS (WITHOUT BUTTON) --- */
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #0b141d;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(11, 20, 29, 0.95) 30%, rgba(11, 20, 29, 0.6) 60%, rgba(11, 20, 29, 0) 100%);
+        }
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 550px;
+            padding: 40px;
+            color: #fff;
+        }
+        .slide-content h2 {
+            font-size: 3.5rem;
+            color: #fff;
+            margin: 0 0 15px 0;
+            border: none;
+            padding: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .slide-content p {
+            font-size: 1rem;
+            color: #c7d5e0;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 25px;
+            left: 40px;
+            z-index: 3;
+            display: flex;
+            gap: 10px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .dot.active {
+            background: #66c0f4;
+            transform: scale(1.2);
+        }
+        /* ------------------------------------------- */
+
         section {
             padding: 40px 20px;
             max-width: 1100px;
@@ -341,6 +424,12 @@
                 width: 100%;
                 max-width: 380px;
             }
+            .hero-container {
+                height: 350px;
+            }
+            .slide-content h2 {
+                font-size: 2rem;
+            }
             .card {
                 flex-direction: column;
                 align-items: flex-start;
@@ -407,7 +496,12 @@
         </div>
     </header>
 
-    <!-- සියලුම ගේම් සීරිස් / Categories ඩේටාබේස් එකෙන් ඇවිත් dynamic ව පිරෙන්නේ මේ ස්ථානයටයි -->
+    <!-- --- DYNAMIC HERO SLIDER --- -->
+    <div class="hero-container" id="heroSliderContainer">
+        <div style="color: #657786; text-align: center; padding-top: 200px;">Loading featured games...</div>
+    </div>
+    <!-- -------------------------------------------- -->
+
     <main id="dynamic-games-container">
         <div style="padding: 40px; text-align: center; color: #657786;">Loading Game Sections...</div>
     </main>
@@ -458,8 +552,10 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
+        
         const commentsCollection = collection(db, "comments");
         const gamesCollection = collection(db, "games");
+        const sliderCollection = collection(db, "hero_slider");
 
         const loggedOutView = document.getElementById('loggedOutView');
         const loggedInView = document.getElementById('loggedInView');
@@ -470,6 +566,7 @@
         const emailError = document.getElementById('emailError');
         const passwordError = document.getElementById('passwordError');
         const mainContainer = document.getElementById("dynamic-games-container");
+        const sliderContainer = document.getElementById("heroSliderContainer");
 
         let currentUser = null;
         function clearErrors() {
@@ -497,7 +594,86 @@
             loadCommentsRealTime();
         });
 
-        // 100% Dynamic Game Loading System (Firestore එකෙන් කෙලින්ම Categories හදනවා)
+        // --- DYNAMIC HERO SLIDER ENGINE (REALTIME - NO BUTTON) ---
+        function loadHeroSliderRealTime() {
+            let currentSlideIndex = 0;
+            let slideInterval = null;
+
+            onSnapshot(sliderCollection, (snapshot) => {
+                sliderContainer.innerHTML = "";
+                
+                if (snapshot.empty) {
+                    sliderContainer.style.display = "none";
+                    return;
+                }
+                sliderContainer.style.display = "block";
+
+                const dotsWrapper = document.createElement("div");
+                dotsWrapper.className = "slider-dots";
+
+                let index = 0;
+                snapshot.forEach((snapshotDoc) => {
+                    const slideData = snapshotDoc.data();
+
+                    const slide = document.createElement("div");
+                    slide.className = `slide ${index === 0 ? 'active' : ''}`;
+                    slide.style.backgroundImage = `url('${slideData.image}')`;
+                    slide.innerHTML = `
+                        <div class="slide-overlay"></div>
+                        <div class="slide-content">
+                            <h2>${slideData.title || ''}</h2>
+                            <p>${slideData.description || ''}</p>
+                        </div>
+                    `;
+                    sliderContainer.appendChild(slide);
+
+                    const dot = document.createElement("div");
+                    dot.className = `dot ${index === 0 ? 'active' : ''}`;
+                    dot.dataset.slideIndex = index;
+                    
+                    dot.addEventListener("click", (e) => {
+                        clearInterval(slideInterval);
+                        goToSlide(parseInt(e.target.dataset.slideIndex));
+                        startAutoPlay();
+                    });
+
+                    dotsWrapper.appendChild(dot);
+                    index++;
+                });
+
+                sliderContainer.appendChild(dotsWrapper);
+
+                const slides = document.querySelectorAll(".slide");
+                const dots = document.querySelectorAll(".dot");
+
+                function goToSlide(n) {
+                    slides[currentSlideIndex].classList.remove("active");
+                    dots[currentSlideIndex].classList.remove("active");
+                    currentSlideIndex = (n + slides.length) % slides.length;
+                    slides[currentSlideIndex].classList.add("active");
+                    dots[currentSlideIndex].classList.add("active");
+                }
+
+                function startAutoPlay() {
+                    slideInterval = setInterval(() => {
+                        goToSlide(currentSlideIndex + 1);
+                    }, 5000); 
+                }
+
+                clearInterval(slideInterval);
+                if(slides.length > 1) {
+                    startAutoPlay();
+                }
+
+            }, (error) => {
+                console.error("Error loading slider: ", error);
+            });
+        }
+
+        loadHeroSliderRealTime();
+        // ---------------------------------------------
+
+        // 100% Dynamic Game Loading System
         function loadGamesRealTime() {
             onSnapshot(gamesCollection, (snapshot) => {
                 mainContainer.innerHTML = ""; 
@@ -507,7 +683,6 @@
                     return;
                 }
 
-                // Firestore එකෙන් එන දත්ත Category අනුව වෙන් කරගැනීම
                 const categoriesData = {};
 
                 snapshot.forEach((snapshotDoc) => {
@@ -520,20 +695,16 @@
                     categoriesData[category].push(game);
                 });
 
-                // හැම Category එකකටම අදාළව HTML Section එක බැගින් Dynamic ව නිර්මාණය කිරීම
                 Object.keys(categoriesData).forEach((categoryName) => {
                     const section = document.createElement("section");
                     
-                    // Category එක සඳහා Title එකක් සෑදීම
                     const title = document.createElement("h2");
                     title.innerText = categoryName;
                     section.appendChild(title);
 
-                    // ගේම් කාඩ්ස් බහාලීමට Grid එකක් සෑදීම
                     const grid = document.createElement("div");
                     grid.className = "grid";
 
-                    // අදාළ Category එකේ ගේම්ස් සියල්ල Grid එකට එකතු කිරීම
                     categoriesData[categoryName].forEach((game) => {
                         const gameCard = document.createElement("div");
                         gameCard.className = "card";
